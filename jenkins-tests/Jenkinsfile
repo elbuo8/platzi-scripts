@@ -9,10 +9,14 @@ pipeline {
 
   stages {
     stage('Install dependencies') {
-      sh 'npm i'
+      steps {
+        sh 'npm i'
+      }
     }
     stage('Run tests') {
-      sh 'npm t'
+      steps {
+        sh 'npm t'
+      }
     }
   }
 }
