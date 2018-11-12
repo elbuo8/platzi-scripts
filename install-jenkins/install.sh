@@ -5,4 +5,5 @@ sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.l
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9B7D32F2D50582E6
 apt-get update
 apt-get install git jenkins
+ssh-keygen
 service jenkins start
