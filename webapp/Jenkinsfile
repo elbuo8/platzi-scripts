@@ -1,0 +1,21 @@
+pipeline {
+  agent any
+  tool name: 'latest', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
+
+   options {
+    timeout(time: 2, unit: 'MINUTES')
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        sh "cd webapp && docker build -t elbuo8/webapp:${env.BUILD_NUM}"
+      }
+    }
+    stage('Run tests') {
+      steps {
+        sh 'cd webapp && docker run -it elbuo8/webapp:1 npm t'
+      }
+    }
+  }
+}
