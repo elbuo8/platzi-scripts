@@ -1,7 +1,7 @@
 pipeline {
   agent any
   tools {
-    docker 'latest'
+    org.jenkinsci.plugins.docker.commons.tools.DockerTool 'latest'
   }
 
    options {
