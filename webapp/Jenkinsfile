@@ -1,6 +1,8 @@
 pipeline {
   agent any
-  tool name: 'latest', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
+  tools {
+    name: 'latest', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
+  }
 
    options {
     timeout(time: 2, unit: 'MINUTES')
