@@ -7,12 +7,12 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'cd webapp && docker build -t elbuo8/webapp:${env.BUILD_NUMBER} .'
+        sh "cd webapp && docker build -t elbuo8/webapp:${env.BUILD_NUMBER} ."
       }
     }
     stage('Run tests') {
       steps {
-        sh 'cd webapp && docker run -it elbuo8/webapp:${env.BUILD_NUMBER} npm t'
+        sh "cd webapp && docker run -it elbuo8/webapp:${env.BUILD_NUMBER} npm t"
       }
     }
   }
