@@ -1,19 +1,43 @@
 pipeline {
   agent any
-   options {
+
+  options {
     timeout(time: 2, unit: 'MINUTES')
+  }
+
+  environment {
+    ARTIFACT_ID = "elbuo8/webapp:${env.BUILD_NUMBER}"
   }
 
   stages {
     stage('Build') {
       steps {
-        sh "cd webapp && docker build -t elbuo8/webapp:${env.BUILD_NUMBER} ."
+        script {
+          dir("webapp") {
+            dockerImage = docker.build "${env.ARTIFACT_ID}"
+          }
+        }
       }
     }
     stage('Run tests') {
       steps {
-        sh "cd webapp && docker run -it elbuo8/webapp:${env.BUILD_NUMBER} npm t"
+        sh "docker run ${dockerImage.id} npm test"
+      }
+    }
+    stage('Publish') {
+      steps {
+        script {
+          docker.withRegistry("", "DockerHubCredentials") {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Schedule Staging Deployment') {
+      steps {
+        build job: 'deploy-webapp-staging', parameters: [string(name: 'ARTIFACT_ID', value: "${env.ARTIFACT_ID}")], wait: false
       }
     }
   }
 }
+
