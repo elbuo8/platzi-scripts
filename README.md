@@ -1,5 +1,5 @@
 # Platzi Scripts
 
-Dummy tests are in `jenkins-tests *4
+Dummy tests are in `jenkins-tests *5
 
 
