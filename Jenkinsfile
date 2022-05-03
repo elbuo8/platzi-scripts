@@ -1,9 +1,6 @@
 pipeline {
   agent any
 
-  options {
-    timeout(time: 2, unit: 'MINUTES')
-  }
 
   environment {
     ARTIFACT_ID = "jloaiza13/webapp:${env.BUILD_NUMBER}"
