@@ -1,12 +1,9 @@
 pipeline {
   agent any
 
-  options {
-    timeout(time: 2, unit: 'MINUTES')
-  }
 
   environment {
-    ARTIFACT_ID = "elbuo8/webapp:${env.BUILD_NUMBER}"
+    ARTIFACT_ID = "jloaiza13/webapp:${env.BUILD_NUMBER}"
   }
 
   stages {
@@ -30,7 +27,7 @@ pipeline {
       }
       steps {
         script {
-          docker.withRegistry("", "DockerHubCredentials") {
+          docker.withRegistry("", "dockerhub") {
             dockerImage.push()
           }
         }
